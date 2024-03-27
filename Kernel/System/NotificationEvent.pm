@@ -240,7 +240,7 @@ sub NotificationGet {
     # get notification event message data
     $DBObject->Prepare(
         SQL => '
-            SELECT subject, text, content_type, language
+            SELECT subject, text, `content_type`, language
             FROM notification_event_message
             WHERE notification_id = ?',
         Bind => [ \$Data{ID} ],
@@ -405,7 +405,7 @@ sub NotificationAdd {
         return if !$DBObject->Do(
             SQL => '
                 INSERT INTO notification_event_message
-                    (notification_id, subject, text, content_type, language)
+                    (notification_id, subject, text, `content_type`, language)
                 VALUES (?, ?, ?, ?, ?)',
             Bind => [
                 \$ID,
@@ -561,7 +561,7 @@ sub NotificationUpdate {
         $DBObject->Do(
             SQL => '
                 INSERT INTO notification_event_message
-                    (notification_id, subject, text, content_type, language)
+                    (notification_id, subject, text, `content_type`, language)
                 VALUES (?, ?, ?, ?, ?)',
             Bind => [
                 \$Param{ID},

@@ -109,7 +109,7 @@ sub FormIDAddFile {
 
     return if !$DBObject->Do(
         SQL => '
-            INSERT INTO web_upload_cache (form_id, filename, content_type, content_size, content,
+            INSERT INTO web_upload_cache (form_id, filename, `content_type`, content_size, content,
                 create_time_unix, content_id, disposition)
             VALUES  (?, ?, ?, ?, ?, ?, ?, ?)',
         Bind => [
@@ -173,7 +173,7 @@ sub FormIDGetAllFilesData {
 
     $DBObject->Prepare(
         SQL => '
-            SELECT filename, content_type, content_size, content, content_id, disposition
+            SELECT filename, `content_type`, content_size, content, content_id, disposition
             FROM web_upload_cache
             WHERE form_id = ?
             ORDER BY create_time_unix',
@@ -227,7 +227,7 @@ sub FormIDGetAllFilesMeta {
 
     $DBObject->Prepare(
         SQL => '
-            SELECT filename, content_type, content_size, content_id, disposition
+            SELECT filename, `content_type`, content_size, content_id, disposition
             FROM web_upload_cache
             WHERE form_id = ?
             ORDER BY create_time_unix',

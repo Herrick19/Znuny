@@ -48,7 +48,7 @@ sub Run {
         },
         {
             SQL =>
-                "SELECT count(*) from article_data_mime_attachment WHERE content_type NOT LIKE 'text/html%'",
+                "SELECT count(*) from article_data_mime_attachment WHERE `content_type` NOT LIKE 'text/html%'",
             Identifier => 'AttachmentCountDBNonHTML',
             Label      => Translatable("Attachments (DB, Without HTML)"),
         },

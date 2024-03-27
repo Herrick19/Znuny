@@ -384,7 +384,7 @@ sub RepositoryAdd {
 
     return if !$DBObject->Do(
         SQL => 'INSERT INTO package_repository (name, version, vendor, filename, '
-            . ' content_type, content, install_status, '
+            . ' `content_type`, content, install_status, '
             . ' create_time, create_by, change_time, change_by)'
             . ' VALUES  (?, ?, ?, ?, \'text/xml\', ?, \''
             . Translatable('not installed') . '\', '

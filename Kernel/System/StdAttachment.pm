@@ -94,7 +94,7 @@ sub StdAttachmentAdd {
     # insert attachment
     return if !$DBObject->Do(
         SQL => 'INSERT INTO standard_attachment '
-            . ' (name, content_type, content, filename, valid_id, comments, '
+            . ' (name, `content_type`, content, filename, valid_id, comments, '
             . ' create_time, create_by, change_time, change_by) VALUES '
             . ' (?, ?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp, ?)',
         Bind => [
@@ -105,7 +105,7 @@ sub StdAttachmentAdd {
 
     # get the id
     $DBObject->Prepare(
-        SQL  => 'SELECT id FROM standard_attachment WHERE name = ? AND content_type = ?',
+        SQL  => 'SELECT id FROM standard_attachment WHERE name = ? AND `content_type` = ?',
         Bind => [ \$Param{Name}, \$Param{ContentType}, ],
     );
 
@@ -145,7 +145,7 @@ sub StdAttachmentGet {
 
     # sql
     return if !$DBObject->Prepare(
-        SQL => 'SELECT name, content_type, content, filename, valid_id, comments, '
+        SQL => 'SELECT name, `content_type`, content, filename, valid_id, comments, '
             . 'create_time, create_by, change_time, change_by '
             . 'FROM standard_attachment WHERE id = ?',
         Bind   => [ \$Param{ID} ],
@@ -251,7 +251,7 @@ sub StdAttachmentUpdate {
         }
 
         return if !$DBObject->Do(
-            SQL => 'UPDATE standard_attachment SET content = ?, content_type = ?, '
+            SQL => 'UPDATE standard_attachment SET content = ?, `content_type` = ?, '
                 . ' filename = ? WHERE id = ?',
             Bind => [
                 \$Param{Content}, \$Param{ContentType}, \$Param{Filename}, \$Param{ID},

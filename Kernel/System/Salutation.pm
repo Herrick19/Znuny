@@ -83,7 +83,7 @@ sub SalutationAdd {
     my $DBObject = $Kernel::OM->Get('Kernel::System::DB');
 
     return if !$DBObject->Do(
-        SQL => 'INSERT INTO salutation (name, text, content_type, comments, valid_id, '
+        SQL => 'INSERT INTO salutation (name, text, `content_type`, comments, valid_id, '
             . ' create_time, create_by, change_time, change_by) VALUES '
             . ' (?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp, ?)',
         Bind => [
@@ -148,7 +148,7 @@ sub SalutationGet {
 
     # get the salutation
     return if !$DBObject->Prepare(
-        SQL => 'SELECT id, name, text, content_type, comments, valid_id, change_time, create_time '
+        SQL => 'SELECT id, name, text, `content_type`, comments, valid_id, change_time, create_time '
             . 'FROM salutation WHERE id = ?',
         Bind => [ \$Param{ID} ],
     );
@@ -223,7 +223,7 @@ sub SalutationUpdate {
 
     # sql
     return if !$DBObject->Do(
-        SQL => 'UPDATE salutation SET name = ?, text = ?, content_type = ?, comments = ?, '
+        SQL => 'UPDATE salutation SET name = ?, text = ?, `content_type` = ?, comments = ?, '
             . 'valid_id = ?, change_time = current_timestamp, change_by = ? WHERE id = ?',
         Bind => [
             \$Param{Name}, \$Param{Text}, \$Param{ContentType}, \$Param{Comment},

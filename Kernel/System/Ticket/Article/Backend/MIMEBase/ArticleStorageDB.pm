@@ -250,7 +250,7 @@ sub ArticleWriteAttachment {
     # write attachment to db
     return if !$DBObject->Do(
         SQL => '
-            INSERT INTO article_data_mime_attachment (article_id, filename, content_type, content_size,
+            INSERT INTO article_data_mime_attachment (article_id, filename, `content_type`, content_size,
                 content, content_id, content_alternative, disposition, create_time, create_by,
                 change_time, change_by)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp, ?)',
@@ -335,7 +335,7 @@ sub ArticleAttachmentIndexRaw {
     # try database
     return if !$DBObject->Prepare(
         SQL => '
-            SELECT filename, content_type, content_size, content_id, content_alternative,
+            SELECT filename, `content_type`, content_size, content_id, content_alternative,
                 disposition
             FROM article_data_mime_attachment
             WHERE article_id = ?
@@ -440,7 +440,7 @@ sub ArticleAttachment {
 
     return if !$DBObject->Prepare(
         SQL => '
-            SELECT content_type, content, content_id, content_alternative, disposition, filename
+            SELECT `content_type`, content, content_id, content_alternative, disposition, filename
             FROM article_data_mime_attachment
             WHERE id = ?',
         Bind   => [ \$AttachmentID ],

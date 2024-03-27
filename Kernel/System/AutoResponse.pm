@@ -89,7 +89,7 @@ sub AutoResponseAdd {
         SQL => '
             INSERT INTO auto_response
                 (name, valid_id, comments, text0, text1, type_id, system_address_id,
-                content_type, create_time, create_by, change_time, change_by)
+                `content_type`, create_time, create_by, change_time, change_by)
             VALUES
                 (?, ?, ?, ?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp, ?)',
         Bind => [
@@ -107,7 +107,7 @@ sub AutoResponseAdd {
             WHERE name = ?
                 AND type_id = ?
                 AND system_address_id = ?
-                AND content_type = ?
+                AND `content_type` = ?
                 AND create_by = ?',
         Bind => [
             \$Param{Name}, \$Param{TypeID}, \$Param{AddressID},
@@ -154,7 +154,7 @@ sub AutoResponseGet {
     return if !$DBObject->Prepare(
         SQL => '
             SELECT id, name, valid_id, comments, text0, text1, type_id, system_address_id,
-                content_type, create_time, create_by, change_time, change_by
+                `content_type`, create_time, create_by, change_time, change_by
             FROM auto_response WHERE id = ?',
         Bind  => [ \$Param{ID} ],
         Limit => 1,
@@ -229,7 +229,7 @@ sub AutoResponseUpdate {
         SQL => '
             UPDATE auto_response
             SET name = ?, text0 = ?, comments = ?, text1 = ?, type_id = ?,
-                system_address_id = ?, content_type = ?, valid_id = ?,
+                system_address_id = ?, `content_type` = ?, valid_id = ?,
                 change_time = current_timestamp, change_by = ?
             WHERE id = ?',
         Bind => [
@@ -295,7 +295,7 @@ sub AutoResponseGetByTypeQueueID {
     # SQL query
     return if !$DBObject->Prepare(
         SQL => "
-            SELECT ar.text0, ar.text1, ar.content_type, ar.system_address_id, ar.id
+            SELECT ar.text0, ar.text1, ar.`content_type`, ar.system_address_id, ar.id
             FROM auto_response_type art, auto_response ar, queue_auto_response qar
             WHERE ar.valid_id IN ( ${\(join ', ', $Kernel::OM->Get('Kernel::System::Valid')->ValidIDsGet())} )
                 AND qar.queue_id = ?

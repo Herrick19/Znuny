@@ -79,7 +79,7 @@ sub SignatureAdd {
     my $DBObject = $Kernel::OM->Get('Kernel::System::DB');
 
     return if !$DBObject->Do(
-        SQL => 'INSERT INTO signature (name, text, content_type, comments, valid_id, '
+        SQL => 'INSERT INTO signature (name, text, `content_type`, comments, valid_id, '
             . ' create_time, create_by, change_time, change_by)'
             . ' VALUES (?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp, ?)',
         Bind => [
@@ -129,7 +129,7 @@ sub SignatureGet {
 
     # sql
     return if !$DBObject->Prepare(
-        SQL => 'SELECT id, name, text, content_type, comments, valid_id, change_time, create_time '
+        SQL => 'SELECT id, name, text, `content_type`, comments, valid_id, change_time, create_time '
             . ' FROM signature WHERE id = ?',
         Bind => [ \$Param{ID} ],
     );
@@ -192,7 +192,7 @@ sub SignatureUpdate {
 
     # sql
     return if !$Kernel::OM->Get('Kernel::System::DB')->Do(
-        SQL => 'UPDATE signature SET name = ?, text = ?, content_type = ?, comments = ?, '
+        SQL => 'UPDATE signature SET name = ?, text = ?, `content_type` = ?, comments = ?, '
             . ' valid_id = ?, change_time = current_timestamp, change_by = ? WHERE id = ?',
         Bind => [
             \$Param{Name}, \$Param{Text}, \$Param{ContentType}, \$Param{Comment},

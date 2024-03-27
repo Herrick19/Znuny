@@ -92,7 +92,7 @@ sub StandardTemplateAdd {
     return if !$DBObject->Do(
         SQL => '
             INSERT INTO standard_template (name, valid_id, comments, text,
-                content_type, create_time, create_by, change_time, change_by, template_type)
+                `content_type`, create_time, create_by, change_time, change_by, template_type)
             VALUES (?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp, ?, ?)',
         Bind => [
             \$Param{Name},        \$Param{ValidID}, \$Param{Comment}, \$Param{Template},
@@ -162,7 +162,7 @@ sub StandardTemplateGet {
     # sql
     return if !$DBObject->Prepare(
         SQL => '
-            SELECT name, valid_id, comments, text, content_type, create_time, create_by,
+            SELECT name, valid_id, comments, text, `content_type`, create_time, create_by,
                 change_time, change_by ,template_type
             FROM standard_template
             WHERE id = ?',
@@ -289,7 +289,7 @@ sub StandardTemplateUpdate {
     return if !$Kernel::OM->Get('Kernel::System::DB')->Do(
         SQL => '
             UPDATE standard_template
-            SET name = ?, text = ?, content_type = ?, comments = ?, valid_id = ?,
+            SET name = ?, text = ?, `content_type` = ?, comments = ?, valid_id = ?,
                 change_time = current_timestamp, change_by = ? ,template_type = ?
             WHERE id = ?',
         Bind => [
